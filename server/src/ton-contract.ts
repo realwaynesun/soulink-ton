@@ -1,4 +1,4 @@
-import { TonClient, WalletContractV5R1, internal } from '@ton/ton'
+import { TonClient, WalletContractV5R1, internal, SendMode } from '@ton/ton'
 import { mnemonicToPrivateKey } from '@ton/crypto'
 import { Address, toNano, beginCell, TupleBuilder } from '@ton/core'
 import { config } from './config.js'
@@ -76,6 +76,7 @@ export async function registerOnChain(
   await contract.sendTransfer({
     seqno,
     secretKey: keyPair.secretKey,
+    sendMode: SendMode.PAY_GAS_SEPARATELY,
     messages: [
       internal({
         to: registryAddress,
@@ -331,6 +332,7 @@ export async function cleanGhostOnChain(itemIndex: bigint): Promise<void> {
   await contract.sendTransfer({
     seqno,
     secretKey: keyPair.secretKey,
+    sendMode: SendMode.PAY_GAS_SEPARATELY,
     messages: [
       internal({
         to: registryAddress,

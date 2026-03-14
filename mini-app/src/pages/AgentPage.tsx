@@ -7,7 +7,7 @@ interface AgentData {
   owner: string
   soul_hash: string
   payment_address: string
-  registered_at: number
+  registered_at?: number
   reputation: { score: number; report_count: number }
   profile: {
     display_name: string | null
@@ -48,63 +48,94 @@ export function AgentPage() {
     )
   }
 
-  if (!agent) {
-    return null
-  }
+  if (!agent) return null
 
-  const scoreColor = agent.reputation.score >= 70 ? 'text-green-600'
-    : agent.reputation.score >= 40 ? 'text-yellow-600'
-    : 'text-red-500'
+  const score = agent.reputation.score
+  const scoreColor = score >= 70 ? 'text-green-400' : score >= 40 ? 'text-yellow-400' : 'text-red-400'
+  const scoreBg = score >= 70 ? 'from-green-600 to-emerald-700' : score >= 40 ? 'from-yellow-600 to-orange-700' : 'from-red-600 to-pink-700'
 
   return (
     <div className="mt-6">
-      <div className="text-center mb-6">
-        <div className="w-20 h-20 rounded-full bg-[var(--tg-theme-button-color)] mx-auto mb-3 flex items-center justify-center text-3xl text-white font-bold">
-          {(name ?? '?')[0].toUpperCase()}
-        </div>
-        <h2 className="text-xl font-bold">{agent.name}</h2>
-        {agent.profile?.tagline && (
-          <p className="text-[var(--tg-theme-hint-color)] text-sm mt-1">{agent.profile.tagline}</p>
-        )}
-      </div>
-
-      <div className="rounded-xl bg-[var(--tg-theme-secondary-bg-color)] p-4 mb-4">
-        <h3 className="font-semibold mb-3">Trust Score</h3>
-        <div className="flex items-center gap-4">
-          <span className={`text-3xl font-bold ${scoreColor}`}>
-            {agent.reputation.score}
-          </span>
-          <div>
-            <p className="text-sm">/ 100</p>
-            <p className="text-xs text-[var(--tg-theme-hint-color)]">
-              {agent.reputation.report_count} report{agent.reputation.report_count !== 1 ? 's' : ''}
+      {/* Agent Card */}
+      <div className="rounded-2xl bg-gradient-to-br from-blue-600 to-purple-700 p-5 text-white mb-6 shadow-lg">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center text-3xl font-bold">
+            {(name ?? '?')[0].toUpperCase()}
+          </div>
+          <div className="flex-1">
+            <h2 className="text-xl font-bold">{agent.name}</h2>
+            <p className="text-white/70 text-sm">
+              {agent.profile?.tagline ?? 'AI Agent on TON'}
             </p>
+          </div>
+        </div>
+        <div className="flex gap-6 text-sm">
+          <div>
+            <span className="text-white/60">Trust</span><br/>
+            <span className="font-bold text-lg">{score}</span>
+            <span className="text-white/40 text-xs"> / 100</span>
+          </div>
+          <div>
+            <span className="text-white/60">Reports</span><br/>
+            <span className="font-bold">{agent.reputation.report_count}</span>
+          </div>
+          <div>
+            <span className="text-white/60">Type</span><br/>
+            <span className="font-bold">SBT</span>
           </div>
         </div>
       </div>
 
-      <div className="rounded-xl bg-[var(--tg-theme-secondary-bg-color)] p-4 mb-4">
-        <h3 className="font-semibold mb-3">Identity</h3>
-        <InfoRow label="Chain" value="TON" />
-        <InfoRow label="Owner" value={`${agent.owner.slice(0, 8)}...${agent.owner.slice(-6)}`} />
-        {agent.registered_at > 0 && (
-          <InfoRow label="Registered" value={new Date(agent.registered_at * 1000).toLocaleDateString()} />
-        )}
-        <InfoRow label="Duration" value="Permanent" />
+      {/* Trust Score */}
+      <div className={`rounded-xl bg-gradient-to-r ${scoreBg} p-4 mb-4 text-white`}>
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="font-semibold text-white/80 text-sm">Trust Score</h3>
+            <span className={`text-3xl font-bold ${scoreColor}`}>{score}</span>
+            <span className="text-white/40 text-sm"> / 100</span>
+          </div>
+          <div className="text-right">
+            <p className="text-white/60 text-xs">{agent.reputation.report_count} report{agent.reputation.report_count !== 1 ? 's' : ''}</p>
+            <p className="text-white/40 text-xs mt-1">from other agents</p>
+          </div>
+        </div>
       </div>
 
+      {/* Identity Details */}
+      <div className="rounded-xl bg-[var(--tg-theme-secondary-bg-color)] p-4 mb-4">
+        <h3 className="font-semibold mb-3">🔐 On-Chain Identity</h3>
+        <InfoRow label="Chain" value="TON" />
+        <InfoRow label="Token" value="Soulbound (non-transferable)" />
+        <InfoRow label="Owner" value={`${agent.owner.slice(0, 8)}...${agent.owner.slice(-6)}`} />
+        {agent.registered_at && agent.registered_at > 0 && (
+          <InfoRow label="Registered" value={new Date(agent.registered_at * 1000).toLocaleDateString()} />
+        )}
+      </div>
+
+      {/* Tags */}
       {agent.profile?.tags && agent.profile.tags.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-4">
-          {agent.profile.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-3 py-1 rounded-full bg-[var(--tg-theme-secondary-bg-color)] text-sm"
-            >
-              {tag}
-            </span>
-          ))}
+        <div className="rounded-xl bg-[var(--tg-theme-secondary-bg-color)] p-4 mb-4">
+          <h3 className="font-semibold mb-3">🏷️ Tags</h3>
+          <div className="flex flex-wrap gap-2">
+            {agent.profile.tags.map((tag) => (
+              <span key={tag} className="px-3 py-1 rounded-full bg-[var(--tg-theme-button-color)]/10 text-[var(--tg-theme-button-color)] text-sm">
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
       )}
+
+      {/* Integration */}
+      <div className="rounded-xl bg-[var(--tg-theme-secondary-bg-color)] p-4 mb-4">
+        <h3 className="font-semibold mb-2">🔌 Use This Identity</h3>
+        <div className="bg-black rounded-lg p-3 text-green-400 text-xs font-mono overflow-x-auto">
+          <div className="text-gray-500"># Resolve this agent</div>
+          <div>curl /api/v1/names/{name}</div>
+          <div className="mt-2 text-gray-500"># Check trust score</div>
+          <div>curl /api/v1/credit/{name}</div>
+        </div>
+      </div>
     </div>
   )
 }

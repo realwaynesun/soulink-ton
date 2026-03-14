@@ -60,6 +60,26 @@ api.get('/nft/:name', (req, res) => {
   })
 })
 
+// Agent directory — list recently registered agents
+api.get('/agents/directory', (_req, res) => {
+  const agents = db.prepare(`
+    SELECT j.name, j.owner, p.tagline, p.tags,
+      COALESCE(c.score, 50) as score, COALESCE(c.report_count, 0) as report_count
+    FROM registration_jobs j
+    LEFT JOIN profiles p ON p.agent_name = j.name
+    LEFT JOIN credit_scores c ON c.agent_name = j.name
+    WHERE j.status = 'completed'
+    ORDER BY j.created_at DESC LIMIT 20
+  `).all() as { name: string; owner: string; tagline: string | null; tags: string | null; score: number; report_count: number }[]
+
+  res.json(agents.map(a => ({
+    name: `${a.name}.agent`,
+    owner: a.owner,
+    profile: a.tagline || a.tags ? { tagline: a.tagline, tags: a.tags ? JSON.parse(a.tags) : [] } : null,
+    reputation: { score: a.score, report_count: a.report_count },
+  })))
+})
+
 api.use(searchRouter)
 api.use(registerRouter)
 api.use(resolveRouter)

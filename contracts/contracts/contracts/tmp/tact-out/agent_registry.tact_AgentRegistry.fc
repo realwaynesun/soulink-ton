@@ -1,0 +1,848 @@
+#pragma version =0.4.6;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+;; agent_registry.tact_AgentRegistry.headers.fc
+;;
+;; Header files for AgentRegistry
+;; NOTE: declarations are sorted for optimal order
+;;
+
+;; __tact_context_get
+(int, slice, int, slice) __tact_context_get() inline;
+
+;; __tact_context_get_sender
+slice __tact_context_get_sender() inline;
+
+;; __tact_dict_get_uint_uint
+int __tact_dict_get_uint_uint(cell d, int kl, int k, int vl) inline;
+
+;; __tact_dict_set_uint_uint
+(cell, ()) __tact_dict_set_uint_uint(cell d, int kl, int k, int v, int vl) inline;
+
+;; __tact_dict_exists_uint
+int __tact_dict_exists_uint(cell d, int kl, int k) inline;
+
+;; $DeployOk$_store
+builder $DeployOk$_store(builder build_0, (int) v) inline;
+
+;; $DeployOk$_store_cell
+cell $DeployOk$_store_cell((int) v, builder b) inline;
+
+;; $Revoke$_store
+builder $Revoke$_store(builder build_0, (int) v) inline;
+
+;; $Revoke$_store_cell
+cell $Revoke$_store_cell((int) v, builder b) inline;
+
+;; $MintItem$_store
+builder $MintItem$_store(builder build_0, (slice, int, slice, cell) v) inline;
+
+;; $MintItem$_store_cell
+cell $MintItem$_store_cell((slice, int, slice, cell) v, builder b) inline;
+
+;; $AgentRegistry$_store
+builder $AgentRegistry$_store(builder build_0, (slice, int, cell, cell) v) inline;
+
+;; $AgentRegistry$_load
+(slice, ((slice, int, cell, cell))) $AgentRegistry$_load(slice sc_0) inline;
+
+;; $Context$_get_value
+_ $Context$_get_value((int, slice, int, slice) v) inline;
+
+;; $CollectionData$_to_external
+(int, cell, slice) $CollectionData$_to_external(((int, cell, slice)) v) inline;
+
+;; $AgentRegistry$init$_load
+(slice, ((slice, cell))) $AgentRegistry$init$_load(slice sc_0) inline;
+
+;; $AgentSBT$init$_store
+builder $AgentSBT$init$_store(builder build_0, (slice, int) v) inline;
+
+;; $AgentRegistry$_contract_init
+(slice, int, cell, cell) $AgentRegistry$_contract_init(slice $owner, cell $collectionContent) impure inline;
+
+;; $AgentRegistry$_contract_load
+(slice, int, cell, cell) $AgentRegistry$_contract_load() impure inline;
+
+;; $AgentRegistry$_contract_store
+() $AgentRegistry$_contract_store((slice, int, cell, cell) v) impure inline;
+
+;; $Cell$_fun_asSlice
+slice $Cell$_fun_asSlice(cell $self) impure inline;
+
+;; $global_newAddress
+slice $global_newAddress(int $chain, int $hash) impure inline;
+
+;; $global_contractAddressExt
+slice $global_contractAddressExt(int $chain, cell $code, cell $data) impure inline;
+
+;; $global_contractAddress
+slice $global_contractAddress((cell, cell) $s) impure inline;
+
+;; $CollectionData$_constructor_nextItemIndex_collectionContent_ownerAddress
+((int, cell, slice)) $CollectionData$_constructor_nextItemIndex_collectionContent_ownerAddress(int $nextItemIndex, cell $collectionContent, slice $ownerAddress) inline;
+
+;; $AgentRegistry$_fun_get_collection_data
+((slice, int, cell, cell), (int, cell, slice)) $AgentRegistry$_fun_get_collection_data((slice, int, cell, cell) $self) impure inline_ref;
+
+;; $AgentSBT$_init_child
+(cell, cell) $AgentSBT$_init_child(slice $collectionAddress, int $itemIndex) inline_ref;
+
+;; $AgentRegistry$_fun_getNftItemInit
+((slice, int, cell, cell), (cell, cell)) $AgentRegistry$_fun_getNftItemInit((slice, int, cell, cell) $self, int $itemIndex) impure inline_ref;
+
+;; $AgentRegistry$_fun_get_nft_address_by_index
+((slice, int, cell, cell), slice) $AgentRegistry$_fun_get_nft_address_by_index((slice, int, cell, cell) $self, int $itemIndex) impure inline_ref;
+
+;; $AgentRegistry$_fun_get_nft_content
+((slice, int, cell, cell), cell) $AgentRegistry$_fun_get_nft_content((slice, int, cell, cell) $self, int $index, cell $individualContent) impure inline_ref;
+
+;; $AgentRegistry$_fun_isNameTaken
+((slice, int, cell, cell), int) $AgentRegistry$_fun_isNameTaken((slice, int, cell, cell) $self, slice $name) impure inline_ref;
+
+;; $AgentRegistry$_fun_getIndexByName
+((slice, int, cell, cell), int) $AgentRegistry$_fun_getIndexByName((slice, int, cell, cell) $self, slice $name) impure inline_ref;
+
+;; $AgentRegistry$_fun_totalSupply
+((slice, int, cell, cell), int) $AgentRegistry$_fun_totalSupply((slice, int, cell, cell) $self) impure inline_ref;
+
+;; $MessageParameters$_constructor_bounce_to_value_mode_body
+((int, cell, int, slice, int)) $MessageParameters$_constructor_bounce_to_value_mode_body(int $bounce, slice $to, int $value, int $mode, cell $body) inline;
+
+;; $AgentRegistry$_fun_notify
+((slice, int, cell, cell), ()) $AgentRegistry$_fun_notify((slice, int, cell, cell) $self, cell $body) impure inline;
+
+;; $AgentRegistry$_fun_requireOwner
+((slice, int, cell, cell), ()) $AgentRegistry$_fun_requireOwner((slice, int, cell, cell) $self) impure inline_ref;
+
+;; $AgentRegistry$_fun_owner
+((slice, int, cell, cell), slice) $AgentRegistry$_fun_owner((slice, int, cell, cell) $self) impure inline_ref;
+
+;; $SendParameters$_constructor_to_value_bounce_mode_body_code_data
+((int, cell, cell, cell, int, slice, int)) $SendParameters$_constructor_to_value_bounce_mode_body_code_data(slice $to, int $value, int $bounce, int $mode, cell $body, cell $code, cell $data) inline;
+
+;; $MintItem$_constructor_agentOwner_soulHash_paymentAddress_content
+((slice, int, slice, cell)) $MintItem$_constructor_agentOwner_soulHash_paymentAddress_content(slice $agentOwner, int $soulHash, slice $paymentAddress, cell $content) inline;
+
+;; $SendParameters$_constructor_to_value_bounce_mode_body
+((int, cell, cell, cell, int, slice, int)) $SendParameters$_constructor_to_value_bounce_mode_body(slice $to, int $value, int $bounce, int $mode, cell $body) inline;
+
+;; $Revoke$_constructor_queryId
+((int)) $Revoke$_constructor_queryId(int $queryId) inline;
+
+;; $DeployOk$_constructor_queryId
+((int)) $DeployOk$_constructor_queryId(int $queryId) inline;
+
+
+;; agent_registry.tact_AgentRegistry.stdlib.fc
+global (int, slice, int, slice) __tact_context;
+global slice __tact_context_sender;
+global cell __tact_child_contract_codes;
+global int __tact_randomized;
+
+(int, slice, int, slice) __tact_context_get() inline {
+    return __tact_context;
+}
+
+slice __tact_context_get_sender() inline {
+    return __tact_context_sender;
+}
+
+int __tact_dict_get_uint_uint(cell d, int kl, int k, int vl) inline {
+    var (r, ok) = udict_get?(d, kl, k);
+    if (ok) {
+        return r~load_uint(vl);
+    } else {
+        return null();
+    }
+}
+
+(cell, ()) __tact_dict_set_uint_uint(cell d, int kl, int k, int v, int vl) inline {
+    if (null?(v)) {
+        var (r, ok) = udict_delete?(d, kl, k);
+        return (r, ());
+    } else {
+        return (udict_set_builder(d, kl, k, begin_cell().store_uint(v, vl)), ());
+    }
+}
+
+int __tact_dict_exists_uint(cell d, int kl, int k) inline {
+    var (r, ok) = udict_get?(d, kl, k);
+    return ok;
+}
+
+builder $global_beginCell() impure asm """
+    NEWC
+""";
+
+int $global_min(int $x, int $y) impure asm """
+    MIN
+""";
+
+int $global_contractHash(cell $code, cell $data) impure asm """
+    s0 PUSH HASHCU // `data` hash
+    s2 PUSH HASHCU // `code` hash
+    SWAP2
+    CDEPTH         // `data` depth
+    SWAP
+    CDEPTH         // `code` depth
+    131380 INT     // (2 << 16) | (1 << 8) | 0x34
+
+    // Group 2: Composition of the Builder
+    NEWC
+    24 STU  // store refs_descriptor | bits_descriptor | data
+    16 STU  // store depth_descriptor for `code`
+    16 STU  // store depth_descriptor for `data`
+    256 STU // store `code` hash
+    256 STU // store `data` hash
+
+    // Group 3: SHA256 hash of the resulting Builder
+    ONE HASHEXT_SHA256
+""";
+
+slice $Slice$_fun_asAddressUnsafe(slice $self) impure asm "NOP";
+
+slice $Cell$_fun_beginParse(cell $self) impure asm """
+    CTOS
+""";
+
+slice $Cell$_fun_asSlice(cell $self) impure inline {
+    var ($self) = $self;
+    return $Cell$_fun_beginParse($self);
+}
+
+cell $Builder$_fun_endCell(builder $self) impure asm """
+    ENDC
+""";
+
+slice $global_newAddress(int $chain, int $hash) impure inline {
+    return $Slice$_fun_asAddressUnsafe($Cell$_fun_asSlice($Builder$_fun_endCell(store_uint(store_int(store_uint($global_beginCell(), 4, 3), $chain, 8), $hash, 256))));
+}
+
+slice $global_contractAddressExt(int $chain, cell $code, cell $data) impure inline {
+    int $hash = $global_contractHash($code, $data);
+    return $global_newAddress($chain, $hash);
+}
+
+slice $global_contractAddress((cell, cell) $s) impure inline {
+    var (($s'code, $s'data)) = $s;
+    return $global_contractAddressExt(0, $s'code, $s'data);
+}
+
+slice $global_myAddress() impure asm """
+    MYADDR
+""";
+
+int $global_myBalance() impure asm """
+    BALANCE FIRST
+""";
+
+() $global_nativeReserve(int $amount, int $mode) impure asm """
+    RAWRESERVE
+""";
+
+() $global_message((int, cell, int, slice, int) $params) impure asm """
+    NEWC
+    b{01} STSLICECONST  // store tag = $0 and ihr_disabled = true
+    1 STI               // store `bounce`
+    b{000} STSLICECONST // store bounced = false and src = addr_none
+    STSLICE             // store `to`
+    SWAP
+    STGRAMS             // store `value`
+    106 PUSHINT         // 1 + 4 + 4 + 64 + 32 + 1
+    STZEROES
+    // → Stack state
+    // s0: Builder
+    // s1: `body`
+    // s2: `mode`
+    STDICT
+    ENDC
+    SWAP
+    SENDRAWMSG
+""";
+
+() $global_send((int, cell, cell, cell, int, slice, int) $params) impure asm """
+    NEWC
+    b{01} STSLICECONST  // store tag = $0 and ihr_disabled = true
+    1 STI               // store `bounce`
+    b{000} STSLICECONST // store bounced = false and src = addr_none
+    STSLICE             // store `to`
+    SWAP
+    STGRAMS             // store `value`
+    105 PUSHINT         // 1 + 4 + 4 + 64 + 32
+    STZEROES            // store currency_collection, ihr_fee, fwd_fee, created_lt and created_at
+    // → Stack state
+    // s0: Builder
+    // s1: `data`
+    // s2: `code`
+    // s3: `body`
+    // s4: `mode`
+
+    // Group 2: Placing the Builder after code and data, then checking those for nullability
+    s2 XCHG0
+    DUP2
+    ISNULL
+    SWAP
+    ISNULL
+    AND
+    // → Stack state
+    // s0: -1 (true) if `data` and `code` are both null, 0 (false) otherwise
+    // s1: `code`
+    // s2: `data`
+    // s3: Builder
+    // s4: `body`
+    // s5: `mode`
+
+    // Group 3: Left branch of the IFELSE, executed if s0 is -1 (true)
+    <{
+        DROP2 // drop `data` and `code`, since either of those is null
+        b{0} STSLICECONST
+    }> PUSHCONT
+
+    // Group 3: Right branch of the IFELSE, executed if s0 is 0 (false)
+    <{
+        // _ split_depth:(Maybe (## 5))
+        //   special:(Maybe TickTock)
+        //   code:(Maybe ^Cell)
+        //   data:(Maybe ^Cell)
+        //   library:(Maybe ^Cell)
+        // = StateInit;
+        ROT                // place message Builder on top
+        b{10} STSLICECONST // store Maybe = true, Either = false
+        // Start composing inlined StateInit
+        b{00} STSLICECONST // store split_depth and special first
+        STDICT             // store code
+        STDICT             // store data
+        b{0} STSLICECONST  // store library
+    }> PUSHCONT
+
+    // Group 3: IFELSE that does the branching shown above
+    IFELSE
+    // → Stack state
+    // s0: Builder
+    // s1: null or StateInit
+    // s2: `body`
+    // s3: `mode`
+
+    // Group 4: Finalizing the message
+    STDICT // store `body` as ref with an extra Maybe bit, since `body` might be null
+    ENDC
+    // → Stack state
+    // s0: Cell
+    // s1: `mode`
+
+    // Group 5: Sending the message, with `mode` on top
+    SWAP
+    SENDRAWMSG // https://github.com/tact-lang/tact/issues/1558
+""";
+
+builder $Builder$_fun_storeSlice(builder $self, slice $slice) impure asm """
+    STSLICER
+""";
+
+int $Cell$_fun_hash(cell $self) impure asm """
+    HASHCU
+""";
+
+slice $String$_fun_asSlice(slice $self) impure asm "NOP";
+
+((slice, int, cell, cell), ()) $AgentRegistry$_fun_notify((slice, int, cell, cell) $self, cell $body) impure inline {
+    var (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)) = $self;
+    slice $to = __tact_context_get_sender();
+    int $bounce = false;
+    if (false) {
+        int $balance = $global_myBalance();
+        int $balanceBeforeMessage = ($balance - $Context$_get_value(__tact_context_get()));
+        if (($balanceBeforeMessage < 0)) {
+            $global_nativeReserve(0, 0);
+            $global_message($MessageParameters$_constructor_bounce_to_value_mode_body($bounce, $to, 0, 130, $body));
+            return (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes), ());
+        }
+    }
+    $global_message($MessageParameters$_constructor_bounce_to_value_mode_body($bounce, $to, 0, 66, $body));
+    return (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes), ());
+}
+
+((slice, int, cell, cell), ()) $AgentRegistry$_fun_requireOwner((slice, int, cell, cell) $self) impure inline_ref {
+    var (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)) = $self;
+    throw_unless(132, ( equal_slices_bits(__tact_context_get_sender(), $self'owner) ));
+    return (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes), ());
+}
+
+((slice, int, cell, cell), slice) $AgentRegistry$_fun_owner((slice, int, cell, cell) $self) impure inline_ref {
+    var (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)) = $self;
+    var $fresh$ret_21 = $self'owner;
+    return (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes), $fresh$ret_21);
+}
+
+;; agent_registry.tact_AgentRegistry.storage.fc
+;;
+;; Type: Context
+;; TLB: _ bounceable:bool sender:address value:int257 raw:^slice = Context
+;;
+
+_ $Context$_get_value((int, slice, int, slice) v) inline {
+    var (v'bounceable, v'sender, v'value, v'raw) = v;
+    return v'value;
+}
+
+;;
+;; Type: SendParameters
+;; TLB: _ mode:int257 body:Maybe ^cell code:Maybe ^cell data:Maybe ^cell value:int257 to:address bounce:bool = SendParameters
+;;
+
+((int, cell, cell, cell, int, slice, int)) $SendParameters$_constructor_to_value_bounce_mode_body_code_data(slice $to, int $value, int $bounce, int $mode, cell $body, cell $code, cell $data) inline {
+    return ($mode, $body, $code, $data, $value, $to, $bounce);
+}
+
+((int, cell, cell, cell, int, slice, int)) $SendParameters$_constructor_to_value_bounce_mode_body(slice $to, int $value, int $bounce, int $mode, cell $body) inline {
+    return ($mode, $body, null(), null(), $value, $to, $bounce);
+}
+
+;;
+;; Type: MessageParameters
+;; TLB: _ mode:int257 body:Maybe ^cell value:int257 to:address bounce:bool = MessageParameters
+;;
+
+((int, cell, int, slice, int)) $MessageParameters$_constructor_bounce_to_value_mode_body(int $bounce, slice $to, int $value, int $mode, cell $body) inline {
+    return ($mode, $body, $value, $to, $bounce);
+}
+
+;;
+;; Type: DeployOk
+;; Header: 0xaff90f57
+;; TLB: deploy_ok#aff90f57 queryId:uint64 = DeployOk
+;;
+
+builder $DeployOk$_store(builder build_0, (int) v) inline {
+    var (v'queryId) = v;
+    build_0 = store_uint(build_0, 2952335191, 32);
+    build_0 = build_0.store_uint(v'queryId, 64);
+    return build_0;
+}
+
+cell $DeployOk$_store_cell((int) v, builder b) inline {
+    return $DeployOk$_store(b, v).end_cell();
+}
+
+((int)) $DeployOk$_constructor_queryId(int $queryId) inline {
+    return ($queryId);
+}
+
+;;
+;; Type: Revoke
+;; Header: 0x6f89f5e3
+;; TLB: revoke#6f89f5e3 queryId:uint64 = Revoke
+;;
+
+builder $Revoke$_store(builder build_0, (int) v) inline {
+    var (v'queryId) = v;
+    build_0 = store_uint(build_0, 1871312355, 32);
+    build_0 = build_0.store_uint(v'queryId, 64);
+    return build_0;
+}
+
+cell $Revoke$_store_cell((int) v, builder b) inline {
+    return $Revoke$_store(b, v).end_cell();
+}
+
+((int)) $Revoke$_constructor_queryId(int $queryId) inline {
+    return ($queryId);
+}
+
+;;
+;; Type: MintItem
+;; Header: 0x50fc0ba9
+;; TLB: mint_item#50fc0ba9 agentOwner:address soulHash:uint256 paymentAddress:address content:^cell = MintItem
+;;
+
+builder $MintItem$_store(builder build_0, (slice, int, slice, cell) v) inline {
+    var (v'agentOwner, v'soulHash, v'paymentAddress, v'content) = v;
+    build_0 = store_uint(build_0, 1358695337, 32);
+    build_0 = build_0.store_slice(v'agentOwner);
+    build_0 = build_0.store_uint(v'soulHash, 256);
+    build_0 = build_0.store_slice(v'paymentAddress);
+    build_0 = build_0.store_ref(v'content);
+    return build_0;
+}
+
+cell $MintItem$_store_cell((slice, int, slice, cell) v, builder b) inline {
+    return $MintItem$_store(b, v).end_cell();
+}
+
+((slice, int, slice, cell)) $MintItem$_constructor_agentOwner_soulHash_paymentAddress_content(slice $agentOwner, int $soulHash, slice $paymentAddress, cell $content) inline {
+    return ($agentOwner, $soulHash, $paymentAddress, $content);
+}
+
+;;
+;; Type: CollectionData
+;; TLB: _ nextItemIndex:uint64 collectionContent:^cell ownerAddress:address = CollectionData
+;;
+
+(int, cell, slice) $CollectionData$_to_external(((int, cell, slice)) v) inline {
+    var (v'nextItemIndex, v'collectionContent, v'ownerAddress) = v; 
+    return (v'nextItemIndex, v'collectionContent, v'ownerAddress);
+}
+
+((int, cell, slice)) $CollectionData$_constructor_nextItemIndex_collectionContent_ownerAddress(int $nextItemIndex, cell $collectionContent, slice $ownerAddress) inline {
+    return ($nextItemIndex, $collectionContent, $ownerAddress);
+}
+
+;;
+;; Type: AgentRegistry
+;; TLB: _ owner:address nextItemIndex:uint64 collectionContent:^cell nameHashes:dict<uint256, uint64> = AgentRegistry
+;;
+
+builder $AgentRegistry$_store(builder build_0, (slice, int, cell, cell) v) inline {
+    var (v'owner, v'nextItemIndex, v'collectionContent, v'nameHashes) = v;
+    build_0 = build_0.store_slice(v'owner);
+    build_0 = build_0.store_uint(v'nextItemIndex, 64);
+    build_0 = build_0.store_ref(v'collectionContent);
+    build_0 = build_0.store_dict(v'nameHashes);
+    return build_0;
+}
+
+(slice, ((slice, int, cell, cell))) $AgentRegistry$_load(slice sc_0) inline {
+    var v'owner = sc_0~load_msg_addr();
+    var v'nextItemIndex = sc_0~load_uint(64);
+    var v'collectionContent = sc_0~load_ref();
+    var v'nameHashes = sc_0~load_dict();
+    return (sc_0, (v'owner, v'nextItemIndex, v'collectionContent, v'nameHashes));
+}
+
+(slice, ((slice, cell))) $AgentRegistry$init$_load(slice sc_0) inline {
+    var v'owner = sc_0~load_msg_addr();
+    var v'collectionContent = sc_0~load_ref();
+    return (sc_0, (v'owner, v'collectionContent));
+}
+
+(slice, int, cell, cell) $AgentRegistry$_contract_load() impure inline {
+    slice $sc = get_data().begin_parse();
+    int $loaded = $sc~load_int(1);
+    if ($loaded) {
+        return $sc~$AgentRegistry$_load();
+    }
+    else {
+        (slice $owner, cell $collectionContent) = $sc~$AgentRegistry$init$_load();
+        $sc.end_parse();
+        return $AgentRegistry$_contract_init($owner, $collectionContent);
+    }
+}
+
+() $AgentRegistry$_contract_store((slice, int, cell, cell) v) impure inline {
+    builder b = begin_cell();
+    b = b.store_int(true, 1);
+    b = $AgentRegistry$_store(b, v);
+    set_data(b.end_cell());
+}
+
+;;
+;; Type: AgentSBT
+;; TLB: _ collectionAddress:address itemIndex:uint64 owner:address content:^cell authorityAddress:address revokedAt:uint64 isInitialized:bool soulHash:uint256 paymentAddress:address = AgentSBT
+;;
+
+builder $AgentSBT$init$_store(builder build_0, (slice, int) v) inline {
+    var (v'collectionAddress, v'itemIndex) = v;
+    build_0 = build_0.store_slice(v'collectionAddress);
+    build_0 = build_0.store_int(v'itemIndex, 257);
+    return build_0;
+}
+
+cell $AgentSBT$_child_get_code() impure asm """
+    B{b5ee9c7201021c010005af000228ff008e88f4a413f4bcf2c80bed5320e303ed43d90102020271030403f83001d072d721d200d200fa4021103450666f04f86102f862ed44d0d200018e25fa40d33ffa40d4fa40d33fd200d401d0d3fffa403010291028102710261025102410236c198e96fa40810101d7005902d1017070547133882710385532e20a925f0ae008d70d1ff2e08221821050fc0ba9bae3022182105fcc3d14ba13141502012005060201200f1002012007080299b8956ed44d0d200018e25fa40d33ffa40d4fa40d33fd200d401d0d3fffa403010291028102710261025102410236c198e96fa40810101d7005902d1017070547133882710385532e2db3c6c918130e0299b51d5da89a1a400031c4bf481a67ff481a9f481a67fa401a803a1a7fff4806020522050204e204c204a20482046d8331d2df481020203ae00b205a202e0e0a8e267104e2070aa65c5b678d923013090201200a0b0002240299b01a7b513434800063897e9034cffe90353e9034cff48035007434fffe900c040a440a0409c409840944090408db0663a5be9020404075c01640b4405c1c151c4ce209c40e154cb8b6cf1b2460130c0299b2ad7b513434800063897e9034cffe90353e9034cff48035007434fffe900c040a440a0409c409840944090408db0663a5be9020404075c01640b4405c1c151c4ce209c40e154cb8b6cf1b2460130d000221000623c2000002230299b8fcfed44d0d200018e25fa40d33ffa40d4fa40d33fd200d401d0d3fffa403010291028102710261025102410236c198e96fa40810101d7005902d1017070547133882710385532e2db3c6c95813110299bad54ed44d0d200018e25fa40d33ffa40d4fa40d33fd200d401d0d3fffa403010291028102710261025102410236c198e96fa40810101d7005902d1017070547133882710385532e2db3c6c9181312000a547278539800022000000098316c33353503fa40d3fffa40d430810ba108b318f2f48200c1d5f84226c705f2f42410571046030544147f02c87f01ca0055805089ce16cb3f14ce12cccecb3fca0001c8cbff12cecdc9ed5404a68e2a5b816294f2f010685515c87f01ca0055805089ce16cb3f14ce12cccecb3fca0001c8cbff12cecdc9ed54e021821004ded148bae302218210d0c3bfeabae3022182102fcb26a2bae3022182106f89f5e3ba1617181901f631d33ffa40d4d200308138c6f8422ac705f2f4708040029128916de22b1036544b30542590c8555082100524c7ae5007cb1f15cb3f13cbffcecccb3ff400c941305a6d6d40037fc8cf8580ca00cf8440ce01fa028069cf40025c6e016eb0935bcf819d58cf8680cf8480f400f400cf81e2f400c901fb00106855151b01ec31d33ffa40d4d20030708040f842039129916de22c10474713544c6052a0c8556082100dd607e35008cb1f16cb3f14cbff12cececccb3ff400c941305a6d6d40037fc8cf8580ca00cf8440ce01fa028069cf40025c6e016eb0935bcf819d58cf8680cf8480f400f400cf81e2f400c901fb00106855151b00f831d33f30f84270804054339ac8552082108b7717355004cb1f12cb3fcbffcec941305a6d6d40037fc8cf8580ca00cf8440ce01fa028069cf40025c6e016eb0935bcf819d58cf8680cf8480f400f400cf81e2f400c901fb0010685515c87f01ca0055805089ce16cb3f14ce12cccecb3fca0001c8cbff12cecdc9ed5401aa8e425b8200e5b0f84224c705f2f4812aee02c00012f2f4f8231068105710461035443302c87f01ca0055805089ce16cb3f14ce12cccecb3fca0001c8cbff12cecdc9ed54e0343182101f04537abae3025f08f2c0821a01c801d33f308138c6f84225c705f2f470830602c8018210d53276db58cb1fcb3fc91035125a6d6d40037fc8cf8580ca00cf8440ce01fa028069cf40025c6e016eb0935bcf819d58cf8680cf8480f400f400cf81e2f400c901fb0053331057104644530270021b0040c87f01ca0055805089ce16cb3f14ce12cccecb3fca0001c8cbff12cecdc9ed54} B>boc PUSHREF
+""";
+
+(cell, cell) $AgentSBT$_init_child(slice $collectionAddress, int $itemIndex) inline_ref {
+    ;; Build init code cell
+
+    ;; Contract Code: AgentSBT
+    cell init_code = $AgentSBT$_child_get_code();
+
+
+    builder b = begin_cell();
+    b = b.store_int(false, 1);
+    b = $AgentSBT$init$_store(b, ($collectionAddress, $itemIndex));
+    return (init_code, b.end_cell());
+}
+
+;;
+;; Contract AgentRegistry functions
+;;
+
+(slice, int, cell, cell) $AgentRegistry$_contract_init(slice $owner, cell $collectionContent) impure inline {
+    var (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)) = (null(), 0, null(), null());
+    $self'owner = $owner;
+    $self'collectionContent = $collectionContent;
+    return ($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes);
+}
+
+((slice, int, cell, cell), (int, cell, slice)) $AgentRegistry$_fun_get_collection_data((slice, int, cell, cell) $self) impure inline_ref {
+    var (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)) = $self;
+    var $fresh$ret_14 = $CollectionData$_constructor_nextItemIndex_collectionContent_ownerAddress($self'nextItemIndex, $self'collectionContent, $self'owner);
+    return (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes), $fresh$ret_14);
+}
+
+((slice, int, cell, cell), (cell, cell)) $AgentRegistry$_fun_getNftItemInit((slice, int, cell, cell) $self, int $itemIndex) impure inline_ref {
+    var (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)) = $self;
+    var $fresh$ret_20 = $AgentSBT$_init_child($global_myAddress(), $itemIndex);
+    return (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes), $fresh$ret_20);
+}
+
+((slice, int, cell, cell), slice) $AgentRegistry$_fun_get_nft_address_by_index((slice, int, cell, cell) $self, int $itemIndex) impure inline_ref {
+    var (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)) = $self;
+    var $fresh$ret_15 = $global_contractAddress(($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)~$AgentRegistry$_fun_getNftItemInit($itemIndex));
+    return (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes), $fresh$ret_15);
+}
+
+((slice, int, cell, cell), cell) $AgentRegistry$_fun_get_nft_content((slice, int, cell, cell) $self, int $index, cell $individualContent) impure inline_ref {
+    var (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)) = $self;
+    var $fresh$ret_16 = $individualContent;
+    return (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes), $fresh$ret_16);
+}
+
+((slice, int, cell, cell), int) $AgentRegistry$_fun_isNameTaken((slice, int, cell, cell) $self, slice $name) impure inline_ref {
+    var (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)) = $self;
+    cell $nameCell = $Builder$_fun_endCell($Builder$_fun_storeSlice($global_beginCell(), $String$_fun_asSlice($name)));
+    int $nameHash = $Cell$_fun_hash($nameCell);
+    var $fresh$ret_17 = __tact_dict_exists_uint($self'nameHashes, 256, $nameHash);
+    return (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes), $fresh$ret_17);
+}
+
+((slice, int, cell, cell), int) $AgentRegistry$_fun_getIndexByName((slice, int, cell, cell) $self, slice $name) impure inline_ref {
+    var (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)) = $self;
+    cell $nameCell = $Builder$_fun_endCell($Builder$_fun_storeSlice($global_beginCell(), $String$_fun_asSlice($name)));
+    int $nameHash = $Cell$_fun_hash($nameCell);
+    var $fresh$ret_18 = __tact_dict_get_uint_uint($self'nameHashes, 256, $nameHash, 64);
+    return (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes), $fresh$ret_18);
+}
+
+((slice, int, cell, cell), int) $AgentRegistry$_fun_totalSupply((slice, int, cell, cell) $self) impure inline_ref {
+    var (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)) = $self;
+    var $fresh$ret_19 = $self'nextItemIndex;
+    return (($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes), $fresh$ret_19);
+}
+
+;;
+;; Get methods of a Contract AgentRegistry
+;;
+
+_ %get_collection_data() method_id(102491) {
+    var self = $AgentRegistry$_contract_load();
+    var res = self~$AgentRegistry$_fun_get_collection_data();
+    return $CollectionData$_to_external(res);
+}
+
+_ %get_nft_address_by_index(int $itemIndex) method_id(92067) {
+    int $itemIndex = $itemIndex;
+    var self = $AgentRegistry$_contract_load();
+    var res = self~$AgentRegistry$_fun_get_nft_address_by_index($itemIndex);
+    return res;
+}
+
+_ %get_nft_content(int $index, cell $individualContent) method_id(68445) {
+    int $index = $index;
+    cell $individualContent = $individualContent;
+    var self = $AgentRegistry$_contract_load();
+    var res = self~$AgentRegistry$_fun_get_nft_content($index, $individualContent);
+    return res;
+}
+
+_ %isNameTaken(slice $name) method_id(129173) {
+    slice $name = $name;
+    var self = $AgentRegistry$_contract_load();
+    var res = self~$AgentRegistry$_fun_isNameTaken($name);
+    return res;
+}
+
+_ %getIndexByName(slice $name) method_id(128983) {
+    slice $name = $name;
+    var self = $AgentRegistry$_contract_load();
+    var res = self~$AgentRegistry$_fun_getIndexByName($name);
+    return res;
+}
+
+_ %totalSupply() method_id(86140) {
+    var self = $AgentRegistry$_contract_load();
+    var res = self~$AgentRegistry$_fun_totalSupply();
+    return res;
+}
+
+_ %owner() method_id(83229) {
+    var self = $AgentRegistry$_contract_load();
+    var res = self~$AgentRegistry$_fun_owner();
+    return res;
+}
+
+;;
+;; Routing of a Contract AgentRegistry
+;;
+
+;; message opcode reader utility: only binary receivers
+;; Returns 32 bit message opcode, otherwise throws the "Invalid incoming message" exit code
+(slice, int) ~load_opcode_internal(slice s) asm( -> 1 0) "32 LDUQ 130 THROWIFNOT";
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    cs~skip_bits(2);
+    var msg_bounceable = cs~load_int(1);
+    var msg_bounced = cs~load_int(1);
+    slice msg_sender_addr = cs~load_msg_addr();
+    __tact_context = (msg_bounceable, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var ($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes) = $AgentRegistry$_contract_load();
+    
+    ;; Handle bounced messages
+    if (msg_bounced) { return (); }
+    int op = 0;
+    int in_msg_length = slice_bits(in_msg);
+    if (in_msg_length >= 32) {
+        op = in_msg~load_uint(32);
+    }
+    ;; Receive RegisterAgent message
+    if (op == 3148855267) {
+        var $msg'name = in_msg~load_ref().begin_parse();
+        var $msg'agentOwner = in_msg~load_msg_addr();
+        var $msg'soulHash = in_msg~load_uint(256);
+        var $msg'paymentAddress = in_msg~load_msg_addr();
+        ($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)~$AgentRegistry$_fun_requireOwner();
+        var ($ctx'bounceable, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+        cell $nameCell = $Builder$_fun_endCell($Builder$_fun_storeSlice($global_beginCell(), $String$_fun_asSlice($msg'name)));
+        int $nameHash = $Cell$_fun_hash($nameCell);
+        throw_unless(4359, (~ __tact_dict_exists_uint($self'nameHashes, 256, $nameHash)));
+        int $itemIndex = $self'nextItemIndex;
+        $self'nameHashes~__tact_dict_set_uint_uint(256, $nameHash, $itemIndex, 64);
+        $self'nextItemIndex = $self'nextItemIndex + 1;
+        cell $contentCell = $Builder$_fun_endCell($Builder$_fun_storeSlice(store_uint($global_beginCell(), 1, 8), $String$_fun_asSlice($msg'name)));
+        var ($nftInit'code, $nftInit'data) = ($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)~$AgentRegistry$_fun_getNftItemInit($itemIndex);
+        int $msgValue = $ctx'value;
+        int $tonBalanceBeforeMsg = ($global_myBalance() - $msgValue);
+        int $storageFee = (50000000 - $global_min($tonBalanceBeforeMsg, 50000000));
+        $msgValue = ($msgValue - ($storageFee + 30000000));
+        $global_send($SendParameters$_constructor_to_value_bounce_mode_body_code_data($global_contractAddress(($nftInit'code, $nftInit'data)), $msgValue, false, 2, $MintItem$_store_cell($MintItem$_constructor_agentOwner_soulHash_paymentAddress_content($msg'agentOwner, $msg'soulHash, $msg'paymentAddress, $contentCell), begin_cell()), $nftInit'code, $nftInit'data));
+        $AgentRegistry$_contract_store(($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes));
+        return ();
+    }
+    
+    ;; Receive RevokeAgent message
+    if (op == 913301552) {
+        var $msg'itemIndex = in_msg~load_uint(64);
+        ($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)~$AgentRegistry$_fun_requireOwner();
+        var ($nftInit'code, $nftInit'data) = ($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)~$AgentRegistry$_fun_getNftItemInit($msg'itemIndex);
+        $global_send($SendParameters$_constructor_to_value_bounce_mode_body($global_contractAddress(($nftInit'code, $nftInit'data)), 50000000, true, 2, $Revoke$_store_cell($Revoke$_constructor_queryId(0), begin_cell())));
+        $AgentRegistry$_contract_store(($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes));
+        return ();
+    }
+    
+    ;; Receive UpdateCollectionContent message
+    if (op == 3494147988) {
+        var $msg'content = in_msg~load_ref();
+        ($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)~$AgentRegistry$_fun_requireOwner();
+        $self'collectionContent = $msg'content;
+        $AgentRegistry$_contract_store(($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes));
+        return ();
+    }
+    
+    ;; Receive Deploy message
+    if (op == 0x946a98b6) {
+        var $deploy'queryId = in_msg~load_uint(64);
+        ($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes)~$AgentRegistry$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId), begin_cell()));
+        $AgentRegistry$_contract_store(($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes));
+        return ();
+    }
+    
+    ;; Receive empty message
+    if ((op == 0) & (in_msg_length <= 32)) {
+        $AgentRegistry$_contract_store(($self'owner, $self'nextItemIndex, $self'collectionContent, $self'nameHashes));
+        return ();
+    }
+    ;; Throw if not handled
+    throw(130);
+}
+
+
+() __tact_selector_hack_asm() impure asm """
+@atend @ 1 {
+        execute current@ context@ current!
+        {
+            // The core idea of this function is to save gas by avoiding unnecessary dict jump, when recv_internal/recv_external is called
+            // We want to extract recv_internal/recv_external from the dict and select needed function
+            // not by jumping to the needed function by it's index, but by using usual IF statements.
+
+            }END> b> // Close previous builder, now we have a cell of previous code on top of the stack
+
+            <{ // Start of the new code builder
+                SETCP0
+                // Swap the new code builder with the previous code, now we have previous code on top of the stack
+                swap
+                // Transform cell to slice and load first ref from the previous code, now we have the dict on top of the stack
+                <s ref@
+
+                // Extract the recv_internal from the dict
+                dup 0 swap @procdictkeylen idict@ { "internal shortcut error" abort } ifnot
+                swap
+
+                // Delete the recv_internal from the dict
+                0 swap @procdictkeylen idict- drop
+                // Delete the recv_external from the dict (it's okay if it's not there)
+                -1 swap @procdictkeylen idict- drop
+                // Delete the __tact_selector_hack from the dict
+                65535 swap @procdictkeylen idict- drop
+
+                // Bring the code builder from the bottom of the stack
+                // because if recv_external extraction is optional, and the number of elements on the stack is not fixed
+                depth 1- roll
+                // Swap with the dict from which we extracted recv_internal and (maybe) recv_external
+                swap
+
+                // Check if the dict is empty
+                dup null?
+                // Store a copy of this flag in the bottom of the stack
+                dup depth 1- -roll
+                {
+                    // If the dict is empty, just drop it (it will be null if it's empty)
+                    drop
+                }
+                {
+                    // If the dict is not empty, prepare continuation to be stored in c3
+                    <{
+                        // Save this dict as first ref in this continuation, it will be pushed in runtime by DICTPUSHCONST
+                        swap @procdictkeylen DICTPUSHCONST
+                        // Jump to the needed function by it's index
+                        DICTIGETJMPZ
+                        // If such key is not found, throw 11 along with the key as an argument
+                        11 THROWARG
+                    }> PUSHCONT
+                    // Store the continuation in c3
+                    c3 POP
+                } cond
+
+                // Function id is on top of the (runtime) stack
+                DUP IFNOTJMP:<{
+                    // place recv_internal here
+                    DROP swap @addop
+                }>
+
+                // Bring back the flag, indicating if the dict is empty or not from the bottom of the stack
+                depth 1- roll
+                {
+                    // If the dict is empty, throw 11
+                    11 THROWARG
+                }
+                {
+                    // If the dict is not empty, jump to continuation from c3
+                    c3 PUSH JMPX
+                } cond
+            }> b>
+        } : }END>c
+        current@ context! current!
+    } does @atend !
+""";
+
+() __tact_selector_hack() method_id(65535) {
+    return __tact_selector_hack_asm();
+}

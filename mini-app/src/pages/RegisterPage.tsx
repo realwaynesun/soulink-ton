@@ -243,26 +243,71 @@ export function RegisterPage({ wallet }: Props) {
   }
 
   if (status === 'done') {
+    const explorerBase = operatorInfo?.network === 'testnet' ? 'testnet.' : ''
     return (
-      <div className="mt-12 text-center">
-        <div className="text-5xl mb-4">&#x2705;</div>
-        <h2 className="text-2xl font-bold mb-2">{name}.agent</h2>
-        <p className="text-[var(--tg-theme-hint-color)] mb-6">Your agent identity is live on TON!</p>
-        {txHash && (
-          <a
-            href={`https://${operatorInfo?.network === 'testnet' ? 'testnet.' : ''}tonviewer.com/transaction/${txHash}`}
-            target="_blank"
-            rel="noopener"
-            className="text-[var(--tg-theme-link-color)] text-sm"
-          >
-            View transaction
-          </a>
-        )}
+      <div className="mt-6">
+        {/* Agent Card */}
+        <div className="rounded-2xl bg-gradient-to-br from-blue-600 to-purple-700 p-5 text-white mb-6 shadow-lg">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center text-3xl font-bold">
+              {name[0].toUpperCase()}
+            </div>
+            <div>
+              <h2 className="text-xl font-bold">{name}.agent</h2>
+              <p className="text-white/70 text-sm">Soulbound Identity on TON</p>
+            </div>
+          </div>
+          <div className="flex gap-4 text-sm">
+            <div><span className="text-white/60">Trust</span><br/><span className="font-bold">50</span></div>
+            <div><span className="text-white/60">Chain</span><br/><span className="font-bold">TON</span></div>
+            <div><span className="text-white/60">Type</span><br/><span className="font-bold">SBT</span></div>
+          </div>
+          {txHash && (
+            <a href={`https://${explorerBase}tonviewer.com/transaction/${txHash}`} target="_blank" rel="noopener"
+              className="block mt-3 text-xs text-white/50 hover:text-white/80">
+              View on-chain →
+            </a>
+          )}
+        </div>
+
+        <p className="text-green-600 font-medium text-center mb-6">✅ Your agent identity is live!</p>
+
+        {/* MCP Configuration */}
+        <div className="rounded-xl bg-[var(--tg-theme-secondary-bg-color)] p-4 mb-4">
+          <h3 className="font-semibold mb-2">🔌 Connect Your Agent</h3>
+          <p className="text-xs text-[var(--tg-theme-hint-color)] mb-3">
+            Add this MCP server to your AI agent's config to use the identity:
+          </p>
+          <div className="bg-black rounded-lg p-3 text-green-400 text-xs font-mono overflow-x-auto">
+            <div className="text-gray-500">// claude_desktop_config.json</div>
+            <div>{'{'}</div>
+            <div>&nbsp;&nbsp;"mcpServers": {'{'}</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;"soulink": {'{'}</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"command": "npx",</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"args": ["soulink-ton-mcp"]</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;{'}'}</div>
+            <div>&nbsp;&nbsp;{'}'}</div>
+            <div>{'}'}</div>
+          </div>
+        </div>
+
+        {/* API Example */}
+        <div className="rounded-xl bg-[var(--tg-theme-secondary-bg-color)] p-4 mb-4">
+          <h3 className="font-semibold mb-2">📡 Verify via API</h3>
+          <div className="bg-black rounded-lg p-3 text-green-400 text-xs font-mono overflow-x-auto">
+            <div className="text-gray-500"># Resolve your agent identity</div>
+            <div>curl /api/v1/names/{name}</div>
+            <div className="mt-2 text-gray-500"># Verify ownership</div>
+            <div>curl -X POST /api/v1/verify \</div>
+            <div>&nbsp;&nbsp;-d '{'{'}' "name": "{name}" '{'}'}'</div>
+          </div>
+        </div>
+
         <button
           onClick={() => navigate(`/agent/${name}`)}
-          className="mt-6 w-full py-3 rounded-xl bg-[var(--tg-theme-button-color)] text-[var(--tg-theme-button-text-color)] font-medium"
+          className="w-full py-3 rounded-xl bg-[var(--tg-theme-button-color)] text-[var(--tg-theme-button-text-color)] font-medium"
         >
-          View My Agent
+          View Agent Profile →
         </button>
       </div>
     )
