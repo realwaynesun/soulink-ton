@@ -1,0 +1,10 @@
+node_modules/
+dist/
+build/
+*.db
+*.db-shm
+*.db-wal
+.env
+.ai-collab/
+.claude-sessions/
+contracts/contracts/tmp/

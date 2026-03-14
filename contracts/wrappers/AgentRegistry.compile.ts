@@ -1,0 +1,9 @@
+import { CompilerConfig } from '@ton/blueprint'
+
+export const compile: CompilerConfig = {
+  lang: 'tact',
+  target: 'contracts/agent_registry.tact',
+  options: {
+    debug: true,
+  },
+}
