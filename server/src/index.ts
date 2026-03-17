@@ -10,6 +10,7 @@ import profileRouter from './routes/profile.js'
 import creditRouter from './routes/credit.js'
 import verifyRouter from './routes/verify.js'
 import { startRegistrationWorker } from './registration-worker.js'
+import { startPolling } from './bot.js'
 
 const app = express()
 
@@ -79,6 +80,29 @@ api.get('/agents/directory', (_req, res) => {
     reputation: { score: a.score, report_count: a.report_count },
   })))
 })
+
+// Demo registration (testnet only — skips payment, mints directly)
+if (config.tonNetwork === 'testnet') {
+  api.post('/demo-register', async (req, res) => {
+    const { name } = req.body ?? {}
+    if (!name || name.length < 3) {
+      res.status(400).json({ error: 'invalid_name' })
+      return
+    }
+    const { randomUUID } = await import('crypto')
+    const { getOperatorAddress } = await import('./ton-client.js')
+    const operatorAddr = await getOperatorAddress()
+    const soulHash = '0x' + Array.from({ length: 32 }, () => Math.floor(Math.random() * 256).toString(16).padStart(2, '0')).join('')
+    const id = randomUUID()
+    try {
+      db.prepare(`INSERT INTO registration_jobs (id, name, owner, soul_hash, payment_address, payment_tx, status) VALUES (?, ?, ?, ?, ?, ?, 'queued')`)
+        .run(id, name.toLowerCase(), operatorAddr, soulHash, operatorAddr, 'demo')
+      res.json({ registration_id: id, name: `${name}.agent`, status: 'queued', poll_url: `/registrations/${id}` })
+    } catch (e) {
+      res.status(409).json({ error: 'name_taken', message: `${name}.agent already exists` })
+    }
+  })
+}
 
 api.use(searchRouter)
 api.use(registerRouter)
